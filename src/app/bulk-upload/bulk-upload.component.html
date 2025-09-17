@@ -1,0 +1,135 @@
+<div *ngIf="config" class="p-5">
+  <section *ngFor="let section of config.sections" class="section-card mb-4">
+    <div
+      [ngClass]="{
+        'card-header': section.componentType !== 'data-table',
+        'table-header': section.componentType === 'data-table'
+      }"
+      class="row"
+    >
+      <div class="col text-md font-medium">{{ section.title }}</div>
+      <div
+        class="col ms-auto text-end align-self-end text-base font-medium text-blue-500"
+      >
+        <img
+          *ngIf="section.subtitleIcon"
+          [src]="section.subtitleIcon"
+          class="me-2"
+          [alt]="section.subtitle"
+        /><span>{{ section.subtitle }}</span>
+      </div>
+    </div>
+
+    <div
+      [ngClass]="{ 'form-section': section.componentType !== 'data-table' }"
+      [ngSwitch]="section.componentType"
+    >
+      <div *ngSwitchCase="'file-uploader'">
+        <label class="form-label required">{{ section.data.label }}</label>
+        <div class="row g-5">
+          <div class="col-9 dashed">
+            <div class="d-flex align-items-center">
+              <div class="icon-circle">
+                <img
+                  src="../../assets/icons/icon-cloud-upload.svg"
+                  alt="cloud-icon"
+                />
+              </div>
+              <div class="ms-2">
+                <div class="text-sm">
+                  <span class="font-semibold text-underline">{{
+                    section.data.promptActionText
+                  }}</span>
+                  <span class="ml-base text-grey-100">{{
+                    section.data.promptRegularText
+                  }}</span>
+                </div>
+                <p class="text-grey-100 text-xs">
+                  {{ section.data.helperText }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mt-auto">
+            <button class="btn btn-outline btn-sm w-100">
+              <img
+                [src]="section.data.buttons[0].icon"
+                [alt]="section.data.buttons[0].label"
+                class="btn-icon"
+                *ngIf="section.data.buttons[0].icon"
+              />
+              <span>{{ section.data.buttons[0].label }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="'search-bar'">
+        <label class="form-label">{{ section.data.label }}</label>
+        <div class="row g-5">
+          <div class="col-9 p-0">
+            <div class="input-icon icon-search">
+              <input
+                type="text"
+                id="example-username"
+                class="form-control"
+                [placeholder]="section.data.placeholder"
+              />
+            </div>
+          </div>
+          <div class="col-3 mt-auto">
+            <button class="btn btn-outline btn-sm w-100">
+              <img
+                [src]="section.data.buttons[0].icon"
+                [alt]="section.data.buttons[0].label"
+                class="btn-icon"
+                *ngIf="section.data.buttons[0].icon"
+              />
+              <span>{{ section.data.buttons[0].label }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="'data-table'">
+        <div *ngIf="tableDataSource" class="data-table striped">
+          <table mat-table [dataSource]="tableDataSource">
+            <ng-container
+              *ngFor="let col of tableDisplayedColumns; let i = index"
+            >
+              <ng-container [matColumnDef]="col">
+                <th mat-header-cell *matHeaderCellDef>
+                  {{ tableSectionData.headers[i] }}
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <ng-container [ngSwitch]="col">
+                    <a *ngSwitchCase="'fileName'" href="#">{{ row[col] }}</a>
+                    <span
+                      *ngSwitchCase="'status'"
+                      class="badge"
+                      [ngClass]="'badge-' + row[col].type"
+                    >
+                      {{ row[col].text }}
+                    </span>
+                    <span *ngSwitchDefault>{{ row[col] }}</span>
+                  </ng-container>
+                </td>
+              </ng-container>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="tableDisplayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: tableDisplayedColumns"
+            ></tr>
+          </table>
+          <mat-paginator
+            [length]="tableSectionData.pagination.totalItems"
+            [pageSize]="tableSectionData.pagination.pageSize"
+            [pageSizeOptions]="tableSectionData.pagination.pageSizeOptions"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

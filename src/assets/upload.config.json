@@ -1,0 +1,85 @@
+{
+  "pageTitle": "Bulk Upload",
+  "sections": [
+    {
+      "title": "EDI Upload",
+      "subtitle": "Download Format",
+      "subtitleIcon": "../assets/icons/icon-download.svg",
+      "componentType": "file-uploader",
+      "data": {
+        "label": "Upload Document",
+        "promptActionText": "Click to upload",
+        "promptRegularText": "or drag and drop",
+        "helperText": "Format CSV & XLSX | Size 5MB | File name should not contain special characters",
+        "mockFile": {
+          "name": "Document_2025.xls",
+          "size": "4.5mb",
+          "progress": 80
+        },
+        "buttons": [
+          {
+            "label": "Upload",
+            "type": "outline",
+            "icon": "../assets/icons/icon-upload.svg"
+          }
+        ]
+      }
+    },
+    {
+      "title": "Search Job ID",
+      "subtitle": "Refresh Logs",
+      "subtitleIcon": "../assets/icons/icon-refresh.svg",
+      "componentType": "search-bar",
+      "data": {
+        "label": "Job ID",
+        "placeholder": "Search",
+        "buttons": [
+          {
+            "label": "Search",
+            "type": "outline",
+            "icon": "../assets/icons/icon-search-button.svg"
+          }
+        ]
+      }
+    },
+    {
+      "title": "Upload History",
+      "componentType": "data-table",
+      "data": {
+        "headers": ["Job ID", "File Name", "Update Time", "Status"],
+        "columnKeys": ["jobId", "fileName", "updateTime", "status"],
+        "rows": [
+          {
+            "jobId": "Q000000700355",
+            "fileName": "Download File",
+            "updateTime": "28/08/2025 12:23 PM",
+            "status": { "text": "Processing", "type": "warning" }
+          },
+          {
+            "jobId": "Q000000700271",
+            "fileName": "File_2025",
+            "updateTime": "21/08/2025 11:10 PM",
+            "status": { "text": "Success", "type": "success" }
+          },
+          {
+            "jobId": "Q000000700211",
+            "fileName": "Business File_2017",
+            "updateTime": "01/08/2025 09:10 AM",
+            "status": { "text": "Processing", "type": "warning" }
+          },
+          {
+            "jobId": "Q000000700199",
+            "fileName": "Download File",
+            "updateTime": "11/07/2025 08:17 AM",
+            "status": { "text": "Failed", "type": "danger" }
+          }
+        ],
+        "pagination": {
+          "totalItems": 85,
+          "pageSize": 10,
+          "pageSizeOptions": [10, 20, 50]
+        }
+      }
+    }
+  ]
+}

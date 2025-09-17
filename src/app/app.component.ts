@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true, // <-- Add this
+  imports: [BulkUploadComponent], // Remove BulkUploadComponent if not used here
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'insillion-edi-fe';
